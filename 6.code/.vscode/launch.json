@@ -1,0 +1,18 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Python windows",
+			"type": "python",
+			"request": "launch",
+			"stopOnEntry": true,
+			"program": "${workspaceRoot}/run.py",
+			"pythonPath": "C:/Python27/python.exe",
+			"debugOptions": [
+				"WaitOnAbnormalExit",
+				"WaitOnNormalExit",
+				"RedirectOutput"
+			]
+		}
+	]
+}
