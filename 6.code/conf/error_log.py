@@ -31,3 +31,5 @@ class ErrorLog():
         self.__init__(path)
         return 
  
+    def __repr__(self):
+        return "error_log %s %s;\n" %(self.getPath(),self.getInfo())

@@ -33,3 +33,6 @@ class User():
     def reNew(self, user, group):
         self.__init__(user,group)
         return
+
+    def __repr__(self):
+        return "user %s %s;\n" % (self.getUser(),self.getGroup())

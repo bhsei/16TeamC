@@ -24,3 +24,6 @@ class WorkerRlimitNofile():
 
     def reNew(self, nofile):
         self.__init__(nofile)
+
+    def __repr__(self):
+        return "worker_rlimit_nofile %d;\n" %(self.getProcess())

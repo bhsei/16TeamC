@@ -7,7 +7,7 @@ class WorkProcess():
     
     def __init__(self, process = None):
         if(process == None):
-            result = os.popen("grep 'nofileor' /proc/cpuinfo  | wc -l").read()
+            result = os.popen("grep 'processor' /proc/cpuinfo  | wc -l").read()
             process = int(result)
         self.__process = process
         self.__isvalid = self.__valid()
@@ -24,3 +24,6 @@ class WorkProcess():
 
     def reNew(self, process):
         self.__init__(process)
+
+    def __repr__(self):
+        return "worker_processes %d;\n" % (self.getProcess())

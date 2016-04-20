@@ -23,3 +23,5 @@ class Pid():
         self.__init__(path)
         return 
     
+    def __repr__(self):
+        return "pid %s;\n" % (self.getPath())

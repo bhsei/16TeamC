@@ -23,7 +23,8 @@ class Conf():
         return 
 
     def __valid_path(self):
-        return os.path.exists(self.getPath())
+        dirname = os.path.dirname(self.getPath())
+        return os.path.exists(dirname)
 
     def getPath(self):
         return self.__path;
@@ -37,3 +38,20 @@ class Conf():
     
     def setUpFromFile(self):
         return 
+
+    def writeToFile(self):
+        if self.isValid():
+            f = open(self.getPath(),"w")
+            f.write(str(self.user))
+            f.write(str(self.work_process))
+            f.write(str(self.pid))
+            f.write(str(self.error_log))
+            f.write(str(self.worker_rlimit_nofile))
+            f.close()
+        else:
+            pass
+        return
+
+if __name__ == "__main__":
+    a = Conf()
+    a.writeToFile() 
