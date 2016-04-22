@@ -6,35 +6,33 @@ from pid import Pid
 from error_log import ErrorLog
 from worker_rlimit_nofile import WorkerRlimitNofile
 from events import Events
+from http import Http
 class Conf():
     __path = ""
-    __isvalid = False
     user = User()
     work_process = WorkProcess()
     pid = Pid()
     error_log = ErrorLog()
     worker_rlimit_nofile = WorkerRlimitNofile()
     events = Events() 
-    http = None
+    http = Http()
 
     def __init__(self, path = "./nginx.conf"):
         self.__path = path
-        self.__isvalid = self.__valid_path()
         return 
 
-    def __valid_path(self):
+    def __valid(self):
         dirname = os.path.dirname(self.getPath())
         return os.path.exists(dirname)
 
+    def setPath(self,path):
+        self.__path = path
+        return
     def getPath(self):
         return self.__path;
     
     def isValid(self):
-        return self.__isvalid
-    
-    def reNew(self, path):
-        self.__init__(path)
-        return 
+        return self.__valid()
     
     def setUpFromFile(self):
         return 
@@ -48,6 +46,7 @@ class Conf():
             f.write(str(self.error_log))
             f.write(str(self.worker_rlimit_nofile))
             f.write(str(self.events))
+            f.write(str(self.http))
             f.close()
         else:
             pass
