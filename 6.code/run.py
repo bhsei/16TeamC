@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 from Tkinter import *
 from tkFileDialog import *
-from conf.conf import Conf
+#from conf.conf import Conf
 
 root = Tk(":0")
 
