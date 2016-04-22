@@ -1,8 +1,8 @@
+#!/usr/bin/python
 # -*- coding: UTF-8 -*-
 from Tkinter import *
 from tkFileDialog import *
-
-import conf
+from conf.conf import Conf
 
 root = Tk(":0")
 
@@ -25,6 +25,8 @@ def open():
     if filePath == '' :
         print "file not open"
     else :
+        conf = Conf()#解析没有实现
+        
         # 伪造一些数据，应该在解析类实现
         userGroup.set("www www")
         workerProcess.set("2")
