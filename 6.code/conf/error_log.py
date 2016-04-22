@@ -3,33 +3,33 @@ import os
 
 class ErrorLog():
     __path = ""
-    __isvalid = False
     __info_set = [ "debug", "info", "notice", "warn", "error","crit" ] 
     __info = "debug"
 
     def __init__(self, path = "/var/log/nginx/error.log", info = "debug"):
         self.__path = path
         self.__info = info
-        self.__isvalid = self.__valid_path()
         return 
 
-    def __valid_path(self):
+    def __valid(self):
         flag = os.path.exists(self.getPath())
         flag = flag and (self.__info in self.__info_set)
         return flag
 
+    def setPath(self,path):
+        self.__path = path 
+        return 
     def getPath(self):
         return self.__path;
     
+    def setInfo(self, info):
+        self.__info = info
+        return 
     def getInfo(self):
         return self.__info
     
     def isValid(self):
-        return self.__isvalid
+        return self.__valid()
     
-    def reNew(self, path):
-        self.__init__(path)
-        return 
- 
     def __repr__(self):
         return "error_log %s %s;\n" %(self.getPath(),self.getInfo())

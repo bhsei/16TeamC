@@ -2,7 +2,6 @@
 import os
 
 class WorkerRlimitNofile():
-    __isvalid = False
     __nofile = 0
     
     def __init__(self, nofile = None):
@@ -10,20 +9,19 @@ class WorkerRlimitNofile():
             result = os.popen("ulimit -a | grep files").read().split(" ")[-1]
             nofile = int(result)
         self.__nofile = nofile
-        self.__isvalid = self.__valid()
         return
 
     def __valid(self):
         return self.__nofile >= 0
 
     def isValid(self):
-        return self.__isvalid   
+        return self._valid()  
 
-    def getProcess(self):
+    def setNofile(self, nofile):
+        self.__nofile = nofile
+        return
+    def getNofile(self):
         return self.__nofile
 
-    def reNew(self, nofile):
-        self.__init__(nofile)
-
     def __repr__(self):
-        return "worker_rlimit_nofile %d;\n" %(self.getProcess())
+        return "worker_rlimit_nofile %d;\n" %(self.getNofile())

@@ -4,15 +4,13 @@ import os
 class User():
     __user = ""
     __group = ""
-    __isvalid = False
 
     def __init__(self, user = "nobody", group = "nogroup"):
         self.__user = user
         self.__group = group 
-        self.__isvalid =  self.__valid_all()
         return
 
-    def __valid_all(self):
+    def __valid(self):
         result = os.popen("grep \"^" + self.getUser() + "\" /etc/passwd").read()
         if len(result) == 0:
             return False
@@ -22,17 +20,20 @@ class User():
         return True
 
     def isValid(self):
-        return self.__isvalid
+        return self.__valid()
     
+
+    def setGroup(self, group):
+        self.__group = group
+        return 
     def getGroup(self):
         return self.__group
 
+    def setUser(self, user):
+        self.__user = user
+        return 
     def getUser(self):
         return self.__user
     
-    def reNew(self, user, group):
-        self.__init__(user,group)
-        return
-
     def __repr__(self):
         return "user %s %s;\n" % (self.getUser(),self.getGroup())

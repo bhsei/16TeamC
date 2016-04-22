@@ -3,25 +3,23 @@ import os
 
 class Pid():
     __path = ""
-    __isvalid = False
 
     def __init__(self, path = "/var/run/nginx.pid"):
         self.__path = path
-        self.__isvalid = self.__valid_path()
         return 
 
-    def __valid_path(self):
+    def __valid(self):
         return os.path.exists(self.getPath())
 
+
+    def setPath(self, path):
+        self.__path = path
+        return
     def getPath(self):
         return self.__path;
     
     def isValid(self):
-        return self.__isvalid
-    
-    def reNew(self, path):
-        self.__init__(path)
-        return 
+        return self.__valid()
     
     def __repr__(self):
         return "pid %s;\n" % (self.getPath())

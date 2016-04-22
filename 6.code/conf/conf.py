@@ -5,7 +5,7 @@ from work_process import WorkProcess
 from pid import Pid
 from error_log import ErrorLog
 from worker_rlimit_nofile import WorkerRlimitNofile
-
+from events import Events
 class Conf():
     __path = ""
     __isvalid = False
@@ -14,7 +14,7 @@ class Conf():
     pid = Pid()
     error_log = ErrorLog()
     worker_rlimit_nofile = WorkerRlimitNofile()
-    events = None
+    events = Events() 
     http = None
 
     def __init__(self, path = "./nginx.conf"):
@@ -47,6 +47,7 @@ class Conf():
             f.write(str(self.pid))
             f.write(str(self.error_log))
             f.write(str(self.worker_rlimit_nofile))
+            f.write(str(self.events))
             f.close()
         else:
             pass
