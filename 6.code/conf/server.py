@@ -10,7 +10,7 @@ class Server():
     
     def __init__(self,listen = 80, server_name = ["www.example.com"], index = ["index.html","index.htm"], root = "/var/www",location = []):
         self.__listen = listen
-        self.__index = server_name
+        self.__server_name = server_name
         self.__index = index
         self.__root = root
         self.__location = location
@@ -52,19 +52,17 @@ class Server():
         return 
 
     def __repr__(self):
-        ret = "server {\n"
-        ret += "\tlisten %d;\n" %(self.getListen())
-        ret += "\tserver_name "
+        ret = "\tserver {\n"
+        ret += "\t\tlisten %d;\n" %(self.getListen())
+        ret += "\t\tserver_name "
         for i in self.getServerName():
             ret += i + " "
         ret += ";\n"
-        ret += "\tindex "
+        ret += "\t\tindex "
         for i in self.getIndex():
             ret += i + " "
         ret += ";\n"
-        ret += "\troot %s;\n" %(self.getRoot())
-        ret += "}\n"
+        ret += "\t\troot %s;\n" %(self.getRoot())
+        ret += "\t}\n"
         return ret
 
-    def _str__(self):
-        return self.__repr__()

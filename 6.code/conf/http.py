@@ -31,9 +31,10 @@ class Http():
         return
     
     def __repr__(self):
-        ret = ""
+        ret = "http {\n"
         tmp = self.getServer() 
         for i in tmp:
             ret += repr(i)
+        ret += "}\n"
         return ret
         
