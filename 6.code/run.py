@@ -1,12 +1,10 @@
 # -*- coding: UTF-8 -*-
-import sys
-
 from Tkinter import *
 from tkFileDialog import *
 
-from conf import Conf
+import conf
 
-root = Tk()
+root = Tk(":0")
 
 root.title("Nginx配置工具")
 root.geometry("249x200")
@@ -46,10 +44,10 @@ def test():
     print "test code"
     
 menubar = Menu(root)
-menubar.add_cascade(label="open", command=open)
-menubar.add_cascade(label="save", command=save)
-menubar.add_cascade(label="about", command=about)
-menubar.add_cascade(label="test", command=test)
+menubar.add_command(label="open", command=open)
+menubar.add_command(label="save", command=save)
+menubar.add_command(label="about", command=about)
+menubar.add_command(label="test", command=test)
 root.config(menu=menubar)
 
 userGroupLabel = Label(root, text = "用户组")
