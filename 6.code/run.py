@@ -1,7 +1,10 @@
 # -*- coding: UTF-8 -*-
+import sys
 
 from Tkinter import *
 from tkFileDialog import *
+
+from conf import Conf
 
 root = Tk()
 
