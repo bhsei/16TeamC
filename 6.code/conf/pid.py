@@ -11,7 +11,8 @@ class Pid():
         return 
 
     def __valid(self):
-        return os.path.exists(self.getPath())
+#        return os.path.exists(self.getPath())
+        return True
 
     def setUp(self, s):
         r = self.__re.match(s)

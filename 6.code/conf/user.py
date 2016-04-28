@@ -12,13 +12,16 @@ class User():
         return
 
     def __valid(self):
-        result = os.popen("grep \"^" + self.getUser() + "\" /etc/passwd").read()
-        if len(result) == 0:
-            return False
-        result = os.popen("grep \"^" + self.getGroup() + "\" /etc/group").read() 
-        if len(result) == 0:
-            return False
-        return True
+        try:
+            result = os.popen("grep \"^" + self.getUser() + "\" /etc/passwd").read()
+            if len(result) == 0:
+                return False
+            result = os.popen("grep \"^" + self.getGroup() + "\" /etc/group").read() 
+            if len(result) == 0:
+                return False 
+            return True
+        except:
+            return True 
 
     def setUp(self,s):
         r = self.__re.match(s)

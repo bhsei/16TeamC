@@ -8,7 +8,8 @@ class WorkProcess():
     
     def __init__(self, process = None):
         if(process == None):
-            result = os.popen("grep 'processor' /proc/cpuinfo  | wc -l").read()
+#            result = os.popen("grep 'processor' /proc/cpuinfo  | wc -l").read()
+            result = "4"
             process = int(result)
         self.__process = process
         return

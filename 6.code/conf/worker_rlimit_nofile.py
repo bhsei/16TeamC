@@ -8,7 +8,8 @@ class WorkerRlimitNofile():
     
     def __init__(self, nofile = None):
         if(nofile == None):
-            result = os.popen("ulimit -a | grep files").read().split(" ")[-1]
+#            result = os.popen("ulimit -a | grep files").read().split(" ")[-1]
+            result = "1024"
             nofile = int(result)
         self.__nofile = nofile
         return
