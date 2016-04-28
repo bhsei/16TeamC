@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
+from conf.conf import *
 from Tkinter import *
 from tkFileDialog import *
 
@@ -21,18 +22,19 @@ class MainFrame():
     __eventTypes = None 
     
     def open(self):
+        conf = Conf()#解析没有实现
         filePath = askopenfilename()
         if filePath == '' :
             print "file not open"
         else :
-            #conf = Conf()#解析没有实现
-            #在解析类实现
-            self.__userGroup.set("www www")
-            self.__workerProcess.set("2")
-            self.__pidPath.set("./")
-            self.__logPath.set("./")
-            self.__eventType.set("epoll")
-            self.__workerConnection.set("65536")
+            conf.setPath(filePath)
+            conf.setUpFromFile()
+            self.__userGroup.set(conf.getUser().getUser() + " " + conf.getUser().getGroup())
+            self.__workerProcess.set(conf.getWorkProcess().getProcess())
+            self.__pidPath.set(conf.getPid().getPath())
+            self.__logPath.set(conf.getErrorLog().getPath())
+            self.__eventType.set(conf.getEvents().getUse())
+            self.__workerConnection.set(conf.getEvents().getWorkerConnections())
 
     def save(self):
         print "save"

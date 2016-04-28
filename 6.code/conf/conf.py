@@ -9,7 +9,6 @@ from worker_rlimit_nofile import WorkerRlimitNofile
 from events import Events
 from http import Http
 class Conf():
-    __path = ""
     __user = User()
     __work_process = WorkProcess()
     __pid = Pid()
