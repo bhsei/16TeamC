@@ -1,9 +1,10 @@
 #!/usr/bin/python
-
+import re
 class Events():
     __use_set = ["kqueue","rtsig","epoll","/dev/poll","select","poll"]
     __use = "epoll" 
     __worker_connections = 1
+    __re = re.compile(r".*events.*\{.*use (\w*).*worker_connections (\d*).*\}",re.DOTALL)
     
     def __init__(self, use = "epoll", worker_connections = 1):
         self.__use = use
@@ -14,6 +15,15 @@ class Events():
         flag = self.getUse() in __use_set
         flat = flag and self.getWorkerConnections >= 1 
         return flag
+
+    def setUp(self,s):
+        r = self.__re.match(s)
+        if r != None:
+            r = r.groups()
+            self.setUse(r[0])
+            self.setWorkerConnections(int(r[1]))
+            return True
+        return False
 
     def isValid(self):
         return self.__valid()

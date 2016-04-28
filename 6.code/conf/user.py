@@ -1,10 +1,11 @@
 #!/user/bin/python
 import os
+import re
 
 class User():
     __user = ""
     __group = ""
-
+    __re = re.compile(r".*user (\w*) (\w*)",re.DOTALL)
     def __init__(self, user = "nobody", group = "nogroup"):
         self.__user = user
         self.__group = group 
@@ -19,9 +20,17 @@ class User():
             return False
         return True
 
+    def setUp(self,s):
+        r = self.__re.match(s)
+        if r != None:
+            r = r.groups()
+            self.setUser(r[0])
+            self.setGroup(r[1])
+            return True
+        return False
+
     def isValid(self):
         return self.__valid()
-    
 
     def setGroup(self, group):
         self.__group = group

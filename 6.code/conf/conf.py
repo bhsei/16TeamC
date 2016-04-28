@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import os
+import re
 from user import User
 from work_process import WorkProcess
 from pid import Pid
@@ -77,6 +78,15 @@ class Conf():
         return self.__valid()
     
     def setUpFromFile(self):
+        f = open(self.getPath())
+        s = f.read()
+        self.getUser().setUp(s)	
+        self.getWorkProcess().setUp(s)
+        self.getPid().setUp(s)
+        self.getErrorLog().setUp(s)
+        self.getWorkerRlimitNofile().setUp(s)
+        self.getEvents().setUp(s)
+        self.getHttp().setUp(s)
         return 
 
     def writeToFile(self):
@@ -95,5 +105,6 @@ class Conf():
         return
 
 if __name__ == "__main__":
-    a = Conf()
-    a.writeToFile() 
+	a = Conf()
+	a.setUpFromFile()
+#    a.writeToFile() 

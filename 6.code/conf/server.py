@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+import re
 
 class Server():
     __listen = 80
@@ -7,6 +7,7 @@ class Server():
     __index = []
     __root = ""
     __location = []
+    __re = re.compile(r".*server\s*\{\s*listen\s*(\d*);\s*server_name\s*(.*);\s*index\s*(.*);\s*root\s*(\S*);\s*\}",re.DOTALL)
     
     def __init__(self,listen = 80, server_name = ["www.example.com"], index = ["index.html","index.htm"], root = "/var/www",location = []):
         self.__listen = listen
@@ -18,6 +19,17 @@ class Server():
 
     def __valid(self):
         return self.getListen() in range(0,65536)
+
+    def setUp(self,s):
+        r = self.__re.match(s)
+        if r!=None:
+            r = r.groups() 
+            self.setListen(int(r[0]))
+            self.setServerName(r[1].split(" "))
+            self.setIndex(r[2].split(" "))
+            self.setRoot(r[3])
+            return True
+        return False
 
     def isValid(self):
         return self.__valid()

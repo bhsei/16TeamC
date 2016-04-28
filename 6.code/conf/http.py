@@ -1,16 +1,25 @@
 #!/usr/bin/python
+import re
 from server import Server
 class Http():
     __upstream = None
-    __server = [Server()]
+    __server = Server()
+    __re = re.compile(r".*http\s*\{(.*)\}",re.DOTALL)
 
-    def __init__(self, upstream = None, server = [Server()]):
+    def __init__(self, upstream = None, server = Server()):
         self.__upstream = upstream
         self.__server = server
         return
 
     def __valid(self):
         return True
+    
+    def setUp(self,s):
+        r = self.__re.match(s) 
+        if r != None:
+            r = r.groups()
+            return self.getServer().setUp(r[0])
+        return False
     
     def isValid(self):
         return self.__valid()
@@ -23,18 +32,13 @@ class Http():
 
     def getServer(self):
         return self.__server
-    def setServer(self, servers):
-        self.__server = servers
-        return
-    def addServer(self, server):
-        self.__server.append(server)
+    def setServer(self, server):
+        self.__server = server
         return
     
     def __repr__(self):
         ret = "http {\n"
-        tmp = self.getServer() 
-        for i in tmp:
-            ret += repr(i)
+        ret += repr(self.getServer())
         ret += "}\n"
         return ret
         
