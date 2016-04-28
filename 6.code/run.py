@@ -7,18 +7,24 @@ from tkFileDialog import *
 root = Tk(":0")
 
 root.title("Nginx配置工具")
-root.geometry("249x200")
+root.geometry("300x200")
 root.resizable(width=True, height= True)
 
-filePath = StringVar()
-fileObject = StringVar()
-userGroup = StringVar()
-workerProcess = StringVar()
-pidPath = StringVar()
-logPath = StringVar()
-maxConn = StringVar()
-rootPath = StringVar()
-errorPage = StringVar()
+filePath = StringVar(root)
+fileObject = StringVar(root)
+userGroup = StringVar(root)
+eventType = StringVar(root)
+workerProcess = StringVar(root)
+workerConnection = StringVar(root)
+pidPath = StringVar(root)
+logPath = StringVar(root)
+maxConn = StringVar(root)
+rootPath = StringVar(root)
+errorPage = StringVar(root)
+
+#初始化变量
+userGroup.set("nobody")
+eventType.set("default")
 
 def open():
     filePath = askopenfilename()
@@ -44,7 +50,21 @@ def about():
     
 def test():
     print "test code"
-    
+
+def choosePidPath():
+    filePath = askdirectory()
+    if filePath == '':
+        print "path not choose"
+    else:
+        print filePath
+
+def chooseLogPath():
+    filePath = askdirectory()
+    if filePath == '':
+        print "path not choose"
+    else:
+        print filePath
+
 menubar = Menu(root)
 menubar.add_command(label="open", command=open)
 menubar.add_command(label="save", command=save)
@@ -54,37 +74,39 @@ root.config(menu=menubar)
 
 userGroupLabel = Label(root, text = "用户组")
 userGroupLabel.grid(row=1, column=1)
-userGroupEntry = Entry(root, textvariable = userGroup)
-userGroupEntry.grid(row=1, column=2)
+userGroupChoice = ['root root', 'www www', 'user user1', 'user user2','nobody'] #获取用户组列表
+userGroupList = OptionMenu(root, userGroup, *userGroupChoice)
+userGroupList.grid(row=1, column=2)
 
 workerProcessLabel = Label(root, text = "workerProcess")
 workerProcessLabel.grid(row=2, column=1)
-workerProcessEntry = Entry(root, textvariable = workerProcess)
+workerProcessEntry = Spinbox(root, from_ = 1, to = 16, textvariable = workerProcess)
 workerProcessEntry.grid(row=2, column=2)
 
 pidPathLabel = Label(root, text = "pidPath")
 pidPathLabel.grid(row=3, column=1)
-pidPathEntry = Entry(root, textvariable = pidPath)
+pidPathEntry = Button(root, text="choose path",command = choosePidPath)
 pidPathEntry.grid(row=3, column=2)
 
-rootPathLabel = Label(root, text = "rootPath")
-rootPathLabel.grid(row=4, column=1)
-rootPathEntry = Entry(root, textvariable = rootPath)
-rootPathEntry.grid(row=4, column=2)
-
 logPathLabel = Label(root, text = "logPath")
-logPathLabel.grid(row=5, column=1)
-logPathEntry = Entry(root, textvariable = logPath)
-logPathEntry.grid(row=5, column=2)
+logPathLabel.grid(row=4, column=1)
+logPathEntry = Button(root, text="choose path",command = chooseLogPath)
+logPathEntry.grid(row=4, column=2)
 
-maxConnLabel = Label(root, text = "maxConn")
-maxConnLabel.grid(row=6, column=1)
-maxConnEntry = Entry(root, textvariable = maxConn)
-maxConnEntry.grid(row=6, column=2)
+#网络连接序列化？？？
+#接收多个网络连接？？？
 
-errorPageLabel = Label(root, text = "errorPage")
-errorPageLabel.grid(row=7, column=1)
-errorPageEntry = Entry(root, textvariable = errorPage)
-errorPageEntry.grid(row=7, column=2)
+eventLabel = Label(root, text = "event type")
+eventLabel.grid(row=5, column=1)
+eventTypes = ['kqueue', 'epoll', 'select', 'poll', 'default'] #获取用户组列表
+userGroupList = OptionMenu(root, eventType, *eventTypes)
+userGroupList.grid(row=5, column=2)
+
+workerConnectionLabel = Label(root, text = "workerConnection")
+workerConnectionLabel.grid(row=6, column=1)
+workerConnectionEntry = Spinbox(root, from_ = 1, to = 65536, textvariable = workerConnection)
+workerConnectionEntry.grid(row=6, column=2)
+
+
 
 root.mainloop()
