@@ -3,6 +3,7 @@
 from conf.conf import *
 from Tkinter import *
 from tkFileDialog import *
+from status.getStatus import *
 
 
 class MainFrame:
@@ -102,7 +103,7 @@ class MainFrame:
         self.__logTypes = self.getConf().getErrorLog().getInfoSet()
         # 图形界面
         self.__root.title("Nginx配置工具")
-        self.__root.geometry("400x200")
+        self.__root.geometry("400x400")
         self.__root.resizable(width=True, height=True)
 
         menubar = Menu(self.__root)
@@ -153,6 +154,46 @@ class MainFrame:
         workerConnectionLabel.grid(row=7, column=1)
         workerConnectionSpinbox = Spinbox(self.__root, from_=1, to=65536, textvariable=self.__workerConnection)
         workerConnectionSpinbox.grid(row=7, column=2)
+
+
+        status_label = Label(self.__root, text="system status:")
+        status_label.grid(row=9, column=2)
+        status = getstatus('localhost')
+
+        active_connection_label1 = Label(self.__root, text="active connection")
+        active_connection_label1.grid(row=10, column=1)
+        active_connection_label2 = Label(self.__root, text=status[0])
+        active_connection_label2.grid(row=10, column=2)
+
+        accepts_label1 = Label(self.__root, text="accepts")
+        accepts_label1.grid(row=11, column=1)
+        accepts_label2 = Label(self.__root, text=status[1])
+        accepts_label2.grid(row=11, column=2)
+
+        handled_label1 = Label(self.__root, text="handled")
+        handled_label1.grid(row=12, column=1)
+        handled_label2 = Label(self.__root, text=status[2])
+        handled_label2.grid(row=12, column=2)
+
+        request_label1 = Label(self.__root, text="request")
+        request_label1.grid(row=13, column=1)
+        request_label2 = Label(self.__root, text=status[3])
+        request_label2.grid(row=13, column=2)
+
+        reading_label1 = Label(self.__root, text="reading")
+        reading_label1.grid(row=14, column=1)
+        reading_label2 = Label(self.__root, text=status[4])
+        reading_label2.grid(row=14, column=2)
+
+        writing_label1 = Label(self.__root, text="writing")
+        writing_label1.grid(row=15, column=1)
+        writing_label2 = Label(self.__root, text=status[5])
+        writing_label2.grid(row=15, column=2)
+
+        waiting_label1 = Label(self.__root, text="waiting")
+        waiting_label1.grid(row=16, column=1)
+        waiting_label2 = Label(self.__root, text=status[6])
+        waiting_label2.grid(row=16, column=2)
 
     def show(self):
         self.__root.mainloop()
