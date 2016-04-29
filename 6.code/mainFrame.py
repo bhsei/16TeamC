@@ -16,6 +16,9 @@ class MainFrame:
     __eventType = StringVar()
     __workerConnection = StringVar()
 
+    # 当前打开配置文件路径
+    __confPath = ''
+
     # 系统用户组数组
     __userGroups = None
 
@@ -23,12 +26,9 @@ class MainFrame:
     __eventTypes = None
 
     def open(self):
-        conf = Conf()
-        filePath = askopenfilename()
-        if filePath == '':
-            print "file not open"
-        else:
-            conf.setPath(filePath)
+        self.__confPath = askopenfilename()
+        if self.__confPath != '':
+            conf = Conf(self.__confPath)
             conf.setUpFromFile()
             self.__userGroup.set(conf.getUser().getUser() + " " + conf.getUser().getGroup())
             self.__workerProcess.set(conf.getWorkProcess().getProcess())
@@ -38,7 +38,12 @@ class MainFrame:
             self.__workerConnection.set(conf.getEvents().getWorkerConnections())
 
     def save(self):
-        conf = Conf()
+        if self.__confPath == '':
+            self.__confPath = asksaveasfilename()
+            if self.__confPath == '':
+                return
+
+        conf = Conf(self.__confPath)
         conf.setUser(self.__userGroup.get())
         conf.setWorkProcess(self.__workerProcess.get())
         conf.setPid(self.__pidPath.get())
