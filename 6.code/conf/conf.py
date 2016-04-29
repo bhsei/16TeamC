@@ -88,22 +88,26 @@ class Conf():
         self.getHttp().setUp(s)
         return 
 
+    def __repr__(self):
+        s = ""
+        s +=str(self.getUser())
+        s +=str(self.getWorkProcess())
+        s +=str(self.getPid())
+        s +=str(self.getErrorLog())
+        s +=str(self.getWorkerRlimitNofile())
+        s +=str(self.getEvents())
+        s +=str(self.getHttp())
+        return s
+
     def writeToFile(self):
         if self.isValid():
             f = open(self.getPath(),"w")
-            f.write(str(self.getUser()))
-            f.write(str(self.getWorkProcess()))
-            f.write(str(self.getPid()))
-            f.write(str(self.getErrorLog()))
-            f.write(str(self.getWorkerRlimitNofile()))
-            f.write(str(self.getEvents()))
-            f.write(str(self.getHttp()))
+            f.write(str(self))
             f.close()
         else:
             pass
         return
 
 if __name__ == "__main__":
-	a = Conf()
-	a.setUpFromFile()
-#    a.writeToFile() 
+    a = Conf()
+    a.writeToFile() 

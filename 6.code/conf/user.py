@@ -48,4 +48,6 @@ class User():
         return self.__user
     
     def __repr__(self):
-        return "user %s %s;\n" % (self.getUser(),self.getGroup())
+        s = "user %s %s;\n" % (self.getUser(),self.getGroup())
+        return s
+    

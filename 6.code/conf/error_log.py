@@ -27,6 +27,12 @@ class ErrorLog():
             return True
         return False
 
+    def setInfoSet(self,info_set):
+        self.__info_set = info_set 
+        return 
+    def getInfoSet(self):
+        return self.__info_set;
+
     def setPath(self,path):
         self.__path = path 
         return 

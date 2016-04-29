@@ -25,6 +25,11 @@ class Events():
             return True
         return False
 
+    def getUseSet(self):
+        return self.__use_set    
+    def setUseSet(self,s):
+        self.__use_set = s 
+
     def isValid(self):
         return self.__valid()
 
