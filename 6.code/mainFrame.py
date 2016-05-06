@@ -19,8 +19,14 @@ class MainFrame:
     __eventType = StringVar()
     __workerConnection = StringVar()
 
+    # server
+    __listen = StringVar()
+    __server_name = StringVar()
+    __index = StringVar()
+    __rootFolder = StringVar()
+
     # 当前打开配置文件路径
-    __confPath = ''
+    __conf_path = ''
     
     __logTypes = None
 
@@ -31,18 +37,18 @@ class MainFrame:
     # 获取系统支持的事件类型
     __eventTypes = None
 
-    def getConf(self):
+    def get_conf(self):
         return self.__conf
 
     def open(self):
-        self.__confPath = askopenfilename()
-        if self.__confPath != '':
-            conf = Conf(self.__confPath)
+        self.__conf_path = askopenfilename()
+        if self.__conf_path != '':
+            conf = Conf(self.__conf_path)
             conf.setUpFromFile()
             self.__conf = conf
             self.__user.set(conf.getUser().getUser())
             self.__group.set(conf.getUser().getGroup())
-            self.__workerProcess.set( conf.getWorkProcess().getProcess())
+            self.__workerProcess.set(conf.getWorkProcess().getProcess())
             self.__pidPath.set(conf.getPid().getPath())
             self.__logPath.set(conf.getErrorLog().getPath())
             self.__logType.set(conf.getErrorLog().getInfo())
@@ -51,9 +57,9 @@ class MainFrame:
             self.__eventTypes = conf.getEvents().getUseSet()
 
     def save(self):
-        if self.__confPath == '':
-            self.__confPath = asksaveasfilename()
-            if self.__confPath == '':
+        if self.__conf_path == '':
+            self.__conf_path = asksaveasfilename()
+            if self.__conf_path == '':
                 return
 
         conf = self.__conf
@@ -70,21 +76,32 @@ class MainFrame:
 
         conf.writeToFile()
 
-    def about(self):
-        print "about"
-
     def test(self):
-        print self.getConf()
+        print self.get_conf()
 
-    def choosePidPath(self):
-        filePath = askdirectory()
-        if filePath != '':
-            self.__pidPath.set(filePath)
+    def choose_pid_path(self):
+        file_path = askdirectory()
+        if file_path != '':
+            self.__pidPath.set(file_path)
 
-    def chooseLogPath(self):
-        filePath = askdirectory()
-        if filePath != '':
-            self.__logPath.set(filePath)
+    def choose_log_path(self):
+        file_path = askdirectory()
+        if file_path != '':
+            self.__logPath.set(file_path)
+
+    def choose_root_path(self):
+        file_path = askdirectory()
+        if file_path != '':
+            self.__rootFolder.set(file_path)
+
+    def start(self):
+        print 'start'
+
+    def stop(self):
+        print 'stop'
+
+    def restart(self):
+        print 'restart'
 
     def __init__(self):
         # 通过工具类获取值
@@ -96,69 +113,84 @@ class MainFrame:
         self.__eventType.set("")
         self.__workerConnection.set("")
 
+        self.__listen.set("")
+        self.__server_name.set("")
+        self.__index.set("")
+        self.__rootFolder.set("")
+
         # 需要通过工具获取
         self.__users = ['www', 'nobody']
         self.__groups = ['www', 'nogroup']
-        self.__eventTypes = self.getConf().getEvents().getUseSet()
-        self.__logTypes = self.getConf().getErrorLog().getInfoSet()
+        self.__eventTypes = self.get_conf().getEvents().getUseSet()
+        self.__logTypes = self.get_conf().getErrorLog().getInfoSet()
+
         # 图形界面
         self.__root.title("Nginx配置工具")
-        self.__root.geometry("400x400")
+        self.__root.geometry("400x600")
         self.__root.resizable(width=True, height=True)
 
         menubar = Menu(self.__root)
         menubar.add_command(label="打开", command=self.open)
         menubar.add_command(label="保存", command=self.save)
-        menubar.add_command(label="关于", command=self.about)
         menubar.add_command(label="test", command=self.test)
         self.__root.config(menu=menubar)
 
         # 用户组
-        userGroupLabel = Label(self.__root, text="用户组")
-        userGroupLabel.grid(row=1, column=1)
-        userDropList = OptionMenu(self.__root, self.__user, *self.__users)
-        userDropList.grid(row=1, column=2)
-        groupDropList = OptionMenu(self.__root, self.__group, *self.__groups)
-        groupDropList.grid(row=1, column=3)
+        user_group_label = Label(self.__root, text="用户组")
+        user_group_label.grid(row=1, column=1)
+        user_drop_list = OptionMenu(self.__root, self.__user, *self.__users)
+        user_drop_list.grid(row=1, column=2)
+        group_drop_list = OptionMenu(self.__root, self.__group, *self.__groups)
+        group_drop_list.grid(row=1, column=3)
 
-        workerProcessLabel = Label(self.__root, text="进程数")
-        workerProcessLabel.grid(row=2, column=1)
-        workerProcessSpinbox = Spinbox(self.__root, from_=1, to=16, textvariable=self.__workerProcess)
-        workerProcessSpinbox.grid(row=2, column=2)
+        worker_process_label = Label(self.__root, text="进程数")
+        worker_process_label.grid(row=2, column=1)
+        worker_process_spinbox = Spinbox(self.__root, from_=1, to=16, textvariable=self.__workerProcess)
+        worker_process_spinbox.grid(row=2, column=2)
 
-        pidPathLabel = Label(self.__root, text="PID存放路径")
-        pidPathLabel.grid(row=3, column=1)
-        pidPathShowLabel = Label(self.__root, textvariable=self.__pidPath)
-        pidPathShowLabel.grid(row=3, column=2)
-        pidPathButton = Button(self.__root, text="更改", command=self.choosePidPath)
-        pidPathButton.grid(row=3, column=3)
+        pid_path_label = Label(self.__root, text="PID存放路径")
+        pid_path_label.grid(row=3, column=1)
+        pid_path_show_label = Label(self.__root, textvariable=self.__pidPath)
+        pid_path_show_label.grid(row=3, column=2)
+        pid_path_button = Button(self.__root, text="更改", command=self.choose_pid_path)
+        pid_path_button.grid(row=3, column=3)
 
-        logPathLabel = Label(self.__root, text="日志路径")
-        logPathLabel.grid(row=4, column=1)
-        logPathShowLabel = Label(self.__root, textvariable=self.__logPath)
-        logPathShowLabel.grid(row=4, column=2)
-        logPathButton = Button(self.__root, text="更改", command=self.chooseLogPath)
-        logPathButton.grid(row=4, column=3)
+        log_path_label = Label(self.__root, text="日志路径")
+        log_path_label.grid(row=4, column=1)
+        log_path_show_label = Label(self.__root, textvariable=self.__logPath)
+        log_path_show_label.grid(row=4, column=2)
+        log_path_button = Button(self.__root, text="更改", command=self.choose_log_path)
+        log_path_button.grid(row=4, column=3)
 
-        logTypeLabel = Label(self.__root, text="日志级别")
-        logTypeLabel.grid(row=5, column=1)
-        logTypeDropList = OptionMenu(self.__root, self.__logType, *self.__logTypes)
-        logTypeDropList.grid(row=5,column=2)
+        log_type_label = Label(self.__root, text="日志级别")
+        log_type_label.grid(row=5, column=1)
+        log_type_drop_list = OptionMenu(self.__root, self.__logType, *self.__logTypes)
+        log_type_drop_list.grid(row=5, column=2)
 
-        eventTypeLabel = Label(self.__root, text="事件类型")
-        eventTypeLabel.grid(row=6, column=1)
-        eventTypeDropList = OptionMenu(self.__root, self.__eventType, *self.__eventTypes)
-        eventTypeDropList.grid(row=6, column=2)
+        event_type_label = Label(self.__root, text="事件类型")
+        event_type_label.grid(row=6, column=1)
+        event_type_drop_list = OptionMenu(self.__root, self.__eventType, *self.__eventTypes)
+        event_type_drop_list.grid(row=6, column=2)
 
-        workerConnectionLabel = Label(self.__root, text="最大连接数")
-        workerConnectionLabel.grid(row=7, column=1)
-        workerConnectionSpinbox = Spinbox(self.__root, from_=1, to=65536, textvariable=self.__workerConnection)
-        workerConnectionSpinbox.grid(row=7, column=2)
+        worker_connection_label = Label(self.__root, text="最大连接数")
+        worker_connection_label.grid(row=7, column=1)
+        worker_connection_spinbox = Spinbox(self.__root, from_=1, to=65536, textvariable=self.__workerConnection)
+        worker_connection_spinbox.grid(row=7, column=2)
 
+        # status = getstatus('localhost')
+        status = [1, 2, 3, 4, 5, 6, 7, 'on']
 
-        status_label = Label(self.__root, text="system status:")
-        status_label.grid(row=9, column=2)
-        status = getstatus('localhost')
+        status_label = Label(self.__root, text="系统状态：")
+        status_label.grid(row=8, column=1)
+        status_label2 = Label(self.__root, textvariable=status[7])
+        status_label2.grid(row=8, column=2)
+
+        start_button = Button(self.__root, text="开始", command=self.start)
+        start_button.grid(row=9, column=1)
+        stop_button = Button(self.__root, text="停止", command=self.stop)
+        stop_button.grid(row=9, column=2)
+        restart_button = Button(self.__root, text="重启", command=self.restart)
+        restart_button.grid(row=9, column=3)
 
         active_connection_label1 = Label(self.__root, text="active connection")
         active_connection_label1.grid(row=10, column=1)
@@ -194,6 +226,31 @@ class MainFrame:
         waiting_label1.grid(row=16, column=1)
         waiting_label2 = Label(self.__root, text=status[6])
         waiting_label2.grid(row=16, column=2)
+
+        server_label = Label(self.__root, text="虚拟主机设置")
+        server_label.grid(row=17, column=2)
+
+        port_label = Label(self.__root, text="监听端口")
+        port_label.grid(row=18, column=1)
+        port_label_drop_list = Spinbox(self.__root, from_=1, to=65536, textvariable=self.__listen)
+        port_label_drop_list.grid(row=18, column=2)
+
+        name_label = Label(self.__root, text="名称")
+        name_label.grid(row=19, column=1)
+        name_entry = Entry(self.__root, textvariable=self.__server_name)
+        name_entry.grid(row=19, column=2)
+
+        index_label = Label(self.__root, text="主页")
+        index_label.grid(row=20, column=1)
+        index_entry = Entry(self.__root, textvariable=self.__index)
+        index_entry.grid(row=20, column=2)
+
+        root_path_label = Label(self.__root, text="根目录")
+        root_path_label.grid(row=21, column=1)
+        root_path_show_abel = Label(self.__root, textvariable=self.__rootFolder)
+        root_path_show_abel.grid(row=21, column=2)
+        root_path_button = Button(self.__root, text="更改", command=self.choose_root_path)
+        root_path_button.grid(row=21, column=3)
 
     def show(self):
         self.__root.mainloop()
