@@ -1,0 +1,9 @@
+
+Benchmarking: GET http://localhost:80/
+1 client, running 30 sec.
+
+Benchmarking: GET http://localhost:80/
+1 client, running 30 sec.
+
+Speed=743442 pages/min, 10928567 bytes/sec.
+Requests: 371721 susceed, 0 failed.

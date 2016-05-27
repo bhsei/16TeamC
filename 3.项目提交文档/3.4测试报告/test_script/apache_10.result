@@ -1,0 +1,36 @@
+
+Benchmarking: GET http://localhost:80/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:80/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:80/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:80/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:80/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:80/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:80/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:80/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:80/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:80/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:80/
+10 clients, running 30 sec.
+
+Speed=2537512 pages/min, 37301488 bytes/sec.
+Requests: 1268756 susceed, 0 failed.

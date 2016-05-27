@@ -1,0 +1,36 @@
+
+Benchmarking: GET http://localhost:8080/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:8080/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:8080/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:8080/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:8080/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:8080/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:8080/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:8080/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:8080/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:8080/
+10 clients, running 30 sec.
+
+Benchmarking: GET http://localhost:8080/
+10 clients, running 30 sec.
+
+Speed=3056348 pages/min, 43043568 bytes/sec.
+Requests: 1528174 susceed, 0 failed.
