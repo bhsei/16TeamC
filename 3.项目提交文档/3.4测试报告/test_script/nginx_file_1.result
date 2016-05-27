@@ -1,0 +1,9 @@
+
+Benchmarking: GET http://10.0.6.152:8080/test1.jpg/
+1 client, running 30 sec.
+
+Speed=61836 pages/min, 328761 bytes/sec.
+Requests: 30918 susceed, 0 failed.
+
+Benchmarking: GET http://10.0.6.152:8080/test1.jpg/
+1 client, running 30 sec.

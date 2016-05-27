@@ -30002,5 +30002,5 @@ Benchmarking: GET http://localhost:80/
 Benchmarking: GET http://localhost:80/
 10000 clients, running 30 sec.
 
-Speed=2557262 pages/min, 37591724 bytes/sec.
-Requests: 1278631 susceed, 0 failed.
+Speed=2708682 pages/min, 39817624 bytes/sec.
+Requests: 1354341 susceed, 0 failed.

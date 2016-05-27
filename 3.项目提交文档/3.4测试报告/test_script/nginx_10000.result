@@ -13628,9 +13628,6 @@ Benchmarking: GET http://localhost:8080/
 Benchmarking: GET http://localhost:8080/
 10000 clients, running 30 sec.
 
-Speed=2905278 pages/min, 40907964 bytes/sec.
-Requests: 1452440 susceed, 199 failed.
-
 Benchmarking: GET http://localhost:8080/
 10000 clients, running 30 sec.
 
@@ -19207,6 +19204,9 @@ Benchmarking: GET http://localhost:8080/
 
 Benchmarking: GET http://localhost:8080/
 10000 clients, running 30 sec.
+
+Speed=2952096 pages/min, 41563052 bytes/sec.
+Requests: 1475689 susceed, 359 failed.
 
 Benchmarking: GET http://localhost:8080/
 10000 clients, running 30 sec.
