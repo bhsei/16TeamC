@@ -4,7 +4,7 @@ from conf.conf import *
 from Tkinter import *
 from tkFileDialog import *
 from status.getStatus import *
-
+import os
 
 class MainFrame:
     __root = Tk(":0")
@@ -95,13 +95,13 @@ class MainFrame:
             self.__rootFolder.set(file_path)
 
     def start(self):
-        print 'start'
+        os.system('sudo /usr/local/nginx/sbin/nginx')
 
     def stop(self):
-        print 'stop'
+        os.system('sudo /usr/local/nginx/sbin/nginx -s start')
 
     def restart(self):
-        print 'restart'
+        os.system('sudo /usr/local/nginx/sbin/nginx -s reload')
 
     def __init__(self):
         # 通过工具类获取值
@@ -177,8 +177,7 @@ class MainFrame:
         worker_connection_spinbox = Spinbox(self.__root, from_=1, to=65536, textvariable=self.__workerConnection)
         worker_connection_spinbox.grid(row=7, column=2)
 
-        # status = getstatus('localhost')
-        status = [1, 2, 3, 4, 5, 6, 7, 'on']
+        status = getstatus('192.168.103.201')
 
         status_label = Label(self.__root, text="系统状态：")
         status_label.grid(row=8, column=1)
