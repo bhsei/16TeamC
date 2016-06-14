@@ -4,7 +4,10 @@ from conf.conf import *
 from Tkinter import *
 from tkFileDialog import *
 from status.getStatus import *
+from multiprocessing import cpu_count
 import os
+import platform
+
 
 class MainFrame:
     __root = Tk(":0")
@@ -103,6 +106,20 @@ class MainFrame:
     def restart(self):
         os.system('sudo /usr/local/nginx/sbin/nginx -s reload')
 
+    def suggest_process(self):
+        self.__workerProcess.set(cpu_count())
+        
+    def suggest_event(self):
+        sysstr = platform.system()
+        print sysstr
+        if(sysstr =="Windows"):
+            self.__eventType.set("select")
+        elif(sysstr == "Linux"):
+            self.__eventType.set("epoll")
+        else:
+            self.__eventType.set("select")
+        
+        
     def __init__(self):
         # 通过工具类获取值
         self.__user.set("")
@@ -147,6 +164,8 @@ class MainFrame:
         worker_process_label.grid(row=2, column=1)
         worker_process_spinbox = Spinbox(self.__root, from_=1, to=16, textvariable=self.__workerProcess)
         worker_process_spinbox.grid(row=2, column=2)
+        worker_process_btn = Button(self.__root, text="建议值", command=self.suggest_process)
+        worker_process_btn.grid(row=2, column=3)
 
         pid_path_label = Label(self.__root, text="PID存放路径")
         pid_path_label.grid(row=3, column=1)
@@ -171,6 +190,8 @@ class MainFrame:
         event_type_label.grid(row=6, column=1)
         event_type_drop_list = OptionMenu(self.__root, self.__eventType, *self.__eventTypes)
         event_type_drop_list.grid(row=6, column=2)
+        event_btn = Button(self.__root, text="建议值", command=self.suggest_event)
+        event_btn.grid(row=6, column=3)
 
         worker_connection_label = Label(self.__root, text="最大连接数")
         worker_connection_label.grid(row=7, column=1)
